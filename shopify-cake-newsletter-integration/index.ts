@@ -21,11 +21,17 @@ var CKMLib: any;
 
   onElementAdded(function () {
     var formEl = document.querySelector(".klaviyo-form");
+    if (formEl?.getAttribute("data-lolaleads-tracked") === "1") {
+      return;
+    }
+
     const text = formEl?.textContent;
 
     if (text?.toLowerCase().includes(data.thank_msg.toLowerCase())) {
-      console.log("lolaleads-nls 1");
+      formEl?.setAttribute("data-lolaleads-tracked", "1");
+      console.log("lolaleads-nls -");
       trackEvent();
+      console.log("lolaleads-nls 1");
     }
   });
 
