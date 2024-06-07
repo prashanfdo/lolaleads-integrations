@@ -2,19 +2,11 @@ var CKMLib: any;
 (() => {
   onElementAdded(function () {
     var formEl = document.querySelector(".klaviyo-form");
-    if (formEl && !formEl.getAttribute("data-lolatracking")) {
-      formEl.setAttribute("data-lolatracking", "1");
-      formEl.addEventListener("submit", function (e) {
-        console.log("NL tracked");
-        trackEvent();
-      });
-      var submitBtn = formEl.querySelector("button");
-      if (submitBtn) {
-        submitBtn.addEventListener("click", function (e) {
-          console.log("NL tracked");
-          trackEvent();
-        });
-      }
+    const text = formEl?.textContent;
+
+    if (text?.includes("thank")) {
+      console.log("NL tracked");
+      trackEvent();
     }
   });
 
