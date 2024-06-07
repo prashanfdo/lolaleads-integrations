@@ -1,2 +1,2 @@
 "use strict";
-console.log("Hello Shopify Cake Newsletter Integration");
+console.log("Hello Shopify Cake Newsletter Integration", new Date());
