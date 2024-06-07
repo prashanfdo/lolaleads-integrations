@@ -4,7 +4,7 @@ var CKMLib: any;
     var formEl = document.querySelector(".klaviyo-form");
     const text = formEl?.textContent;
 
-    if (text?.toLowerCase().includes("thank")) {
+    if (text?.toLowerCase().includes("thanks for signing up")) {
       console.log("NL tracked");
       trackEvent();
     }
