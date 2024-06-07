@@ -1,4 +1,4 @@
-declare var CKMLib: any;
+var CKMLib: any;
 
 console.log("Hello Shopify Cake Newsletter Integration");
 (() => {
