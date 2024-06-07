@@ -8,7 +8,7 @@
 3. Click the three dotted menu located to `customize` button
 4. Select `edit code`
 5. in the `layout > theme.liquid` find the `<body>` tag
-6. Below the `body` tag paste below tag
+6. Below the `body` tag paste below code
 
 ```
 <script id="lolaleads-nls-tracking" src="https://lolaleads-integrations.vercel.app/shopify-cake-newsletter-integration/index.js" defer="defer" data-domain="[[DOMAIN]]" data-offer-id="[[OFFER_ID]]" data-event-id="[[EVENT_ID]]" data-thank-msg="thanks for signing up"/>
