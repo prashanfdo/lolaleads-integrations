@@ -15,4 +15,5 @@
 ```
 
 7. Replace `[[DOMAIN]]`, `[[OFFER_ID]]` and `[[EVENT_ID]]` with appropriate values in pasted code.
-8. `data-thank-msg="thanks for signing up"` change this thank you message with store's news letter subscriptiion thank you message.
+8. Change below thank you message with store's news letter subscription thank you message, which appears after submitting the email.
+   `data-thank-msg="thanks for signing up"`
