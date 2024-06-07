@@ -1,11 +1,30 @@
 var CKMLib: any;
 (() => {
+  const scriptEl = document.querySelector("#lolaleads-nls-tracking");
+
+  if (!scriptEl) {
+    console.error("lolaleads - missing config");
+    return;
+  }
+
+  const data = {
+    domain: scriptEl.getAttribute("data-domain"),
+    offer_id: scriptEl.getAttribute("data-offer-id"),
+    event_id: scriptEl.getAttribute("data-event-id"),
+    thank_msg: scriptEl.getAttribute("data-thank-msg") || "",
+  };
+
+  if (!data.domain || !data.offer_id || !data.event_id || !data.thank_msg) {
+    console.error("lolaleads - missing config");
+    return;
+  }
+
   onElementAdded(function () {
     var formEl = document.querySelector(".klaviyo-form");
     const text = formEl?.textContent;
 
-    if (text?.toLowerCase().includes("thanks for signing up")) {
-      console.log("NL tracked");
+    if (text?.toLowerCase().includes(data.thank_msg.toLowerCase())) {
+      console.log("lolaleads-nls 1");
       trackEvent();
     }
   });
@@ -24,24 +43,6 @@ var CKMLib: any;
   }
 
   function trackEvent() {
-    const scriptEl = document.querySelector("#lolaleads-nls-tracking");
-
-    if (!scriptEl) {
-      console.error("lolaleads - missing config");
-      return;
-    }
-
-    const data = {
-      domain: scriptEl.getAttribute("data-domain"),
-      offer_id: scriptEl.getAttribute("data-offer-id"),
-      event_id: scriptEl.getAttribute("data-event-id"),
-    };
-
-    if (!data.domain || !data.offer_id || !data.event_id) {
-      console.error("lolaleads - missing config");
-      return;
-    }
-
     window._ckm = window._ckm || [];
     window._ckm.push(function cfgev() {
       CKMLib.configureEvents({
