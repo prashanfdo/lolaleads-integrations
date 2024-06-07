@@ -1,20 +1,5 @@
 var CKMLib: any;
-
-console.log("Hello Shopify Cake Newsletter Integration");
 (() => {
-  function onElementAdded(callback: () => void) {
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((node) => {
-          callback();
-        });
-      });
-    });
-
-    // Observe the document for changes
-    observer.observe(document.documentElement, { childList: true, subtree: true });
-  }
-
   onElementAdded(function () {
     var formEl = document.querySelector(".klaviyo-form");
     if (formEl && !formEl.getAttribute("data-lolatracking")) {
@@ -33,7 +18,32 @@ console.log("Hello Shopify Cake Newsletter Integration");
     }
   });
 
+  function onElementAdded(callback: () => void) {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach(() => {
+          callback();
+        });
+      });
+    });
+
+    // Observe the document for changes
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+  }
+
   function trackEvent() {
+    const scriptEl = document.querySelector("script.lolaleads-nls-tracking");
+
+    if (scriptEl) {
+      const data = {
+        domain: scriptEl.getAttribute("data-domain"),
+        offer_id: scriptEl.getAttribute("data-offer-id"),
+        event_id: scriptEl.getAttribute("data-event-id"),
+      };
+      console.log("int-data", data);
+      return;
+    }
+
     window._ckm = window._ckm || [];
     window._ckm.push(function cfgev() {
       CKMLib.configureEvents({
