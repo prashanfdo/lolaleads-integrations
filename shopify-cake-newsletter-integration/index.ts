@@ -32,7 +32,7 @@ var CKMLib: any;
   }
 
   function trackEvent() {
-    const scriptEl = document.querySelector("script.lolaleads-nls-tracking");
+    const scriptEl = document.querySelector("#lolaleads-nls-tracking");
 
     if (scriptEl) {
       const data = {
