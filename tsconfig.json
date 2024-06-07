@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "forceConsistentCasingInFileNames": true,
+      "outDir": "./dist",       // Specifies the output directory for compiled JavaScript files
+      "rootDir": ".",       // Specifies the root directory of TypeScript files
+      "module": "commonjs",     // Specifies the module code generation method
+      "target": "es6",          // Specifies the target JavaScript version
+      "strict": true            // Enable all strict type-checking options
+    },
+    "include": ["**/*.ts"],  // Include all .ts files within the src directory
+    "exclude": ["node_modules"]  // Exclude node_modules directory
+  }
+  
