@@ -34,22 +34,28 @@ var CKMLib: any;
   function trackEvent() {
     const scriptEl = document.querySelector("#lolaleads-nls-tracking");
 
-    if (scriptEl) {
-      const data = {
-        domain: scriptEl.getAttribute("data-domain"),
-        offer_id: scriptEl.getAttribute("data-offer-id"),
-        event_id: scriptEl.getAttribute("data-event-id"),
-      };
-      console.log("int-data", data);
+    if (!scriptEl) {
+      console.error("lolaleads - missing config");
+      return;
+    }
+
+    const data = {
+      domain: scriptEl.getAttribute("data-domain"),
+      offer_id: scriptEl.getAttribute("data-offer-id"),
+      event_id: scriptEl.getAttribute("data-event-id"),
+    };
+
+    if (!data.domain || !data.offer_id || !data.event_id) {
+      console.error("lolaleads - missing config");
       return;
     }
 
     window._ckm = window._ckm || [];
     window._ckm.push(function cfgev() {
       CKMLib.configureEvents({
-        domain: "https://savarois.com",
-        offer_id: 21024,
-        event_id: 1242,
+        domain: data.domain,
+        offer_id: parseInt(data.offer_id || "", 10),
+        event_id: parseInt(data.event_id || "", 10),
       });
       CKMLib.fireEvent();
     });
