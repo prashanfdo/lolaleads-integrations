@@ -1,54 +1,18 @@
-# Integration
+# Integration with Shopify Klavio form
 
-<script>
-    (()=>{
-      function onElementAdded(callback) {
-          const observer = new MutationObserver(mutations => {
-              mutations.forEach(mutation => {
-                  mutation.addedNodes.forEach(node => {
-                    callback(node);
-                  });
-              });
-          });
-      
-          // Observe the document for changes
-          observer.observe(document.documentElement, { childList: true, subtree: true });
-      }
+## Steps
 
-      onElementAdded(function(element) {
-          var formEl = document.querySelector('.klaviyo-form');
-          if(formEl && !formEl.getAttribute('data-lolatracking')){
-            formEl.setAttribute('data-lolatracking','1');
-            formEl.addEventListener('submit', function(e) { 
-                console.log('NL tracked');
-                trackEvent();
-            });
-            var submitBtn = formEl.querySelector('button');
-            submitBtn.addEventListener('click', function(e) {
-                console.log('NL tracked');
-                trackEvent();
-            });
-          }
-      });
+1. Goto Shopify store admin `ex: https://admin.shopify.com/store/9a0f16-1b`
 
-      function trackEvent(){
-        (_ckm = window._ckm || []).push(function cfgev() {
-            CKMLib.configureEvents({
-                domain: 'https://savarois.com',
-                offer_id: 21024,
-                event_id: 1242,
-            });
-            CKMLib.fireEvent();
-        });
-        if (typeof CKMLib != 'string') {
-            CKMLib = 'loading';
-            var pix = document.createElement('script');
-            pix.type = 'text/javascript';
-            pix.async = true;
-            pix.src = '//cakecdn.com/jssdk/lib.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(pix, s);
-        }
-      }
-    })();
-  </script>
+2. Goto menu `Online Store > Themes` in Sales Channel Category
+3. Click the three dotted menu located to `customize` button
+4. Select `edit code`
+5. in the `layout > theme.liquid` find the `<body>` tag
+6. Below the `body` tag paste below tag
+
+```
+<script id="lolaleads-nls-tracking" src="https://lolaleads-integrations.vercel.app/shopify-cake-newsletter-integration/index.js" defer="defer" data-domain="[[DOMAIN]]" data-offer-id="[[OFFER_ID]]" data-event-id="[[EVENT_ID]]" data-thank-msg="thanks for signing up"/>
+```
+
+7. Replace `[[DOMAIN]]`, `[[OFFER_ID]]` and `[[EVENT_ID]]` with appropriate values in pasted code.
+8. `data-thank-msg="thanks for signing up"` change this thank you message with store's news letter subscriptiion thank you message.
