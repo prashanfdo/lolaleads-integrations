@@ -11,7 +11,7 @@ var CKMLib: any;
     domain: scriptEl.getAttribute("data-domain"),
     offer_id: scriptEl.getAttribute("data-offer-id"),
     event_id: scriptEl.getAttribute("data-event-id"),
-    thank_msg: scriptEl.getAttribute("data-thank-msg") || "",
+    thank_msg: scriptEl.getAttribute("data-thank-msg")?.split("|") || undefined,
   };
 
   if (!data.domain || !data.offer_id || !data.event_id || !data.thank_msg) {
@@ -19,21 +19,32 @@ var CKMLib: any;
     return;
   }
 
-  onElementAdded(function () {
-    var formEl = document.querySelector(".klaviyo-form");
-    if (formEl?.getAttribute("data-lolaleads-tracked") === "1") {
+  onElementAdded(checkForNewsLetterThankyouMessage);
+  setTimeout(() => {
+    checkForNewsLetterThankyouMessage();
+  }, 4000);
+
+  function checkForNewsLetterThankyouMessage() {
+    if (scriptEl?.getAttribute("data-lolaleads-tracked") === "1") {
       return;
     }
+    [".newsletter-form", ".klaviyo-form"].forEach((nodeSelector) => {
+      var formEl = document.querySelector(nodeSelector);
 
-    const text = formEl?.textContent;
+      const text = formEl?.textContent;
 
-    if (text?.toLowerCase().includes(data.thank_msg.toLowerCase())) {
-      formEl?.setAttribute("data-lolaleads-tracked", "1");
-      console.log("lolaleads-nls -");
-      trackEvent();
-      console.log("lolaleads-nls 1");
-    }
-  });
+      if (
+        data.thank_msg
+          ?.filter((m) => !!m)
+          .some((msg) => text?.toLowerCase().includes(msg.toLowerCase()))
+      ) {
+        scriptEl?.setAttribute("data-lolaleads-tracked", "1");
+        console.log("lolaleads-nls -");
+        trackEvent();
+        console.log("lolaleads-nls 1");
+      }
+    });
+  }
 
   function onElementAdded(callback: () => void) {
     const observer = new MutationObserver((mutations) => {
