@@ -7,6 +7,9 @@ var CKMLib: any;
     return;
   }
 
+  console.log("lolaleads-nls - pre");
+  setupCookie();
+
   const data = {
     domain: scriptEl.getAttribute("data-domain"),
     offer_id: scriptEl.getAttribute("data-offer-id"),
@@ -39,8 +42,6 @@ var CKMLib: any;
           .some((msg) => text?.toLowerCase().includes(msg.toLowerCase()))
       ) {
         scriptEl?.setAttribute("data-lolaleads-tracked", "1");
-        console.log("lolaleads-nls - pre");
-        trackView();
         console.log("lolaleads-nls -");
         trackEvent();
         console.log("lolaleads-nls 1");
@@ -61,7 +62,7 @@ var CKMLib: any;
     observer.observe(document.documentElement, { childList: true, subtree: true });
   }
 
-  function trackView() {
+  function setupCookie() {
     const cookieDomain = "privacyprotectsend.com";
     var c = {
       name: "cp",
